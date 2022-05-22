@@ -137,7 +137,7 @@ public class StatisticsScheduleServiceImpl implements StatisticsScheduleService 
             }
         }
         if (1 - invalidCount / (double) records.size() < 0.9) {
-            System.out.println("invalid calculation task because valid record rate < 0.8 [spider]=" + task.getSpiderId() + ", [task]=" + task.getId() + ", [invalidCount]=" + invalidCount + ", [total]=" + records.size() + ", [rate]=" + (1 - invalidCount / (double) records.size()));
+            System.out.println("invalid calculation task because valid record rate < 0.9 [spider]=" + task.getSpiderId() + ", [task]=" + task.getId() + ", [invalidCount]=" + invalidCount + ", [total]=" + records.size() + ", [rate]=" + (1 - invalidCount / (double) records.size()));
             return null;
         }
         for (String key : keyWordsMap.keySet()) {

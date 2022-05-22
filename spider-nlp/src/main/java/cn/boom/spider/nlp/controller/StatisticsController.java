@@ -14,7 +14,7 @@ public class StatisticsController {
     private QueryRedisService queryRedisService;
 
     @PostMapping("/get")
-    public R getNid(@RequestBody StatisticsRequest request) {
+    public R getStatistics(@RequestBody StatisticsRequest request) {
         return R.ok().put("data", queryRedisService.getKeyWordsResult(request));
     }
 }

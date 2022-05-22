@@ -24,5 +24,7 @@ public interface QueryCollectionService {
 
     public Long update(String collectionName, CommonRecord record);
 
+    public Long clean(String collectionName);
+
     public List<TaskRecord> findTaskByStatus(String status);
 }

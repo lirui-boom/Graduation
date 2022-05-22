@@ -48,13 +48,15 @@ public class PredictScheduleServiceImpl implements PredictScheduleService {
                     continue;
                 }
                 List<String> participle = participleManager.participle(record.getTitle());
+                // 2.过滤停用词
+                participle = extractManager.filterStopWords(participle);
                 StringBuilder content = new StringBuilder();
                 for (String s : participle) {
                     content.append(s).append(" ");
                 }
-                // 2.计算消极得分
+                // 3.计算消极得分
                 float negativeScore = predictModelManager.predictNegative(content.toString());
-                // 3.标记情感偏向
+                // 4.标记情感偏向
                 String emotion = "";
                 if (negativeScore >= 0.7) {
                     emotion = "Negative";
@@ -63,7 +65,7 @@ public class PredictScheduleServiceImpl implements PredictScheduleService {
                 } else {
                     emotion = "Neutral";
                 }
-                // 4.关键词提取
+                // 5.关键词提取
                 List<String> keywords = extractManager.extract(content.toString());
                 System.out.println(", keywords: " + JsonUtils.toString(keywords));
                 record.setNegative(negativeScore);

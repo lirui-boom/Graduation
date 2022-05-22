@@ -82,7 +82,7 @@ public class QueryCollectionServiceImpl implements QueryCollectionService {
     }
 
     /**
-     * 更新集合中【匹配】查询到的第一条文档数据
+     * 更新集合中【匹配】查询到的文档数据
      *
      * @return 执行更新的结果
      */
@@ -95,6 +95,19 @@ public class QueryCollectionServiceImpl implements QueryCollectionService {
         Query query = new Query(criteria);
         Update update = new Update().set("negative", record.getNegative()).set("emotion", record.getEmotion()).set("keywords", record.getKeywords());
         UpdateResult result = mongoTemplate.upsert(query, update, CommonRecord.class, collectionName);
+        // 输出结果信息
+        return result.getMatchedCount();
+    }
+
+    /**
+     * 清空集合情感分析、关键词摘要数据
+     *
+     * @return 执行更新的结果
+     */
+    public Long clean(String collectionName) {
+        Query query = new Query();
+        Update update = new Update().set("negative", null).set("emotion", null).set("keywords", null);
+        UpdateResult result = mongoTemplate.updateMulti(query, update, CommonRecord.class, collectionName);
         // 输出结果信息
         return result.getMatchedCount();
     }

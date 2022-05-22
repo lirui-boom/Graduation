@@ -3,8 +3,13 @@ package cn.boom.spider.nlp.manager.impl;
 
 import cn.boom.spider.nlp.domain.WOD;
 import cn.boom.spider.nlp.manager.ExtractManager;
+import org.apdplat.word.WordSegmenter;
+import org.apdplat.word.segmentation.Word;
 import org.springframework.stereotype.Component;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 import java.util.*;
 
 @Component
@@ -14,6 +19,23 @@ public class ExtractManagerImpl implements ExtractManager {
     private static int max_iter = 200;//最大迭代次数
     private static int k = 2;  //窗口大小/2
     private static float d = 0.85f;
+    private static Map<String, String> stopWords;
+
+    static {
+        stopWords = new HashMap<>();
+        // 中文 停用词 .txt 文件路径
+        String filePath = "/Users/bytedance/Desktop/graduation/spider-nlp/src/main/java/cn/boom/spider/nlp/data/cn_stopwords.txt";
+        File file = new File(filePath);
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
+            String temp = null;
+            while ((temp = bufferedReader.readLine()) != null) {
+                stopWords.put(temp.trim(), temp.trim());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
     private static List<String> textRank(String field, int keywordNum) {
         //分词
@@ -91,13 +113,31 @@ public class ExtractManagerImpl implements ExtractManager {
 
     public static void main(String[] args) {
         String field = "5月17日，腾讯音乐娱乐集团在财报电话会中宣布，下一个视频号演唱会将为周杰伦演唱会，演唱会时间目前定为5月20日。此前，崔健曾在微信视频号举办线上演唱会“继续撒点野”，直播间点赞量超过1亿。";
+//        String field = "哈利·波特，40岁生日快乐！\n" +
+//                "\n" +
+//                "1991年7月31日，11岁的哈利·波特收到一份特殊的生日礼物——霍格沃兹魔法学校的录取通知书，由此踏上他的魔法之旅……2020年7月31日，陪伴无数青少年长大的哈利迎来了他的40岁生日。 今年也是“哈利·波特”系列小说进入中国20周年，人民文学出版社推出《哈利·波特与魔法石》学院纪念版，包括格兰芬多、斯莱特林、赫奇帕奇和拉文克劳四个学院版本。 31日晚，该社将举办迄今为止最大型的线上直播暨哈利·波特学院杯争夺赛。与此同时，“哈利·波特”系列八部电影正在第23届上海国际电影节展映，第一部电影《哈利·波特与魔法石》4K修复3D版，定档8月14日在内地重映。";
+
         ParticipleManagerImpl participleManager = new ParticipleManagerImpl();
         StringBuilder input = new StringBuilder();
-        for (String s : participleManager.participle(field)) {
+        List<String> participle = participleManager.participle(field);
+        for (String s : participle) {
             input.append(s).append(" ");
         }
+        new ExtractManagerImpl().filterStopWords(participle);
         List<String> keywords = textRank(input.toString(), 10);
         System.out.println("关键词：" + keywords);
+    }
+
+    @Override
+    public List<String> filterStopWords(List<String> words) {
+        List<String> res = new ArrayList<>(words.size());
+        for (String word: words) {
+            if (stopWords.get(word.trim()) != null) {
+                continue;
+            }
+            res.add(word);
+        }
+        return res;
     }
 
     @Override
