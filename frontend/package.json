@@ -24,7 +24,7 @@
     "core-js": "^3.6.5",
     "cross-env": "^7.0.2",
     "dayjs": "^1.8.28",
-    "echarts": "^4.8.0",
+    "echarts": "^5.3.2",
     "element-ui": "^2.13.2",
     "font-awesome": "^4.7.0",
     "github-markdown-css": "^4.0.0",

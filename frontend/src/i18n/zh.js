@@ -21,6 +21,7 @@ export default {
   'Deployed Spiders': '已部署爬虫',
   'Log': '日志',
   'Results': '结果',
+  'Charts': '图表',
   'Environment': '环境',
   'Analytics': '分析',
   'Rules': '规则',

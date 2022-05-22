@@ -14,9 +14,6 @@
       <el-tab-pane :label="$t('Overview')" name="overview">
         <task-overview @click-log="activeTabName = 'overview'" />
       </el-tab-pane>
-<!--      <el-tab-pane :label="$t('Log')" name="log">-->
-<!--        <log-view @search="getTaskLog(true)" />-->
-<!--      </el-tab-pane>-->
       <el-tab-pane :label="$t('Results')" name="results">
         <div class="button-group">
 <!--          <el-button size="small" class="btn-download" type="primary" icon="el-icon-download" @click="downloadCSV">-->
@@ -32,6 +29,10 @@
           @page-change="onResultsPageChange"
         />
       </el-tab-pane>
+      <!-- 图表 -->
+      <el-tab-pane :label="$t('Charts')" name="charts">
+       <charts-view/>
+     </el-tab-pane>
     </el-tabs>
   </div>
 </template>
@@ -44,11 +45,14 @@
   import TaskOverview from '../../components/Overview/TaskOverview'
   import GeneralTableView from '../../components/TableView/GeneralTableView'
   import LogView from '../../components/ScrollView/LogView'
+  import ChartsView from '../../components/Charts/ChartsView'
+
 
   export default {
     name: 'TaskDetail',
     components: {
       // LogView,
+      ChartsView,
       GeneralTableView,
       TaskOverview
     },
