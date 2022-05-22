@@ -22,12 +22,12 @@
       <el-tab-pane :label="$t('Overview')" name="overview">
         <node-overview />
       </el-tab-pane>
-      <el-tab-pane :label="$t('Installation')" name="installation">
+      <!-- <el-tab-pane :label="$t('Installation')" name="installation">
         <node-installation />
       </el-tab-pane>
       <el-tab-pane v-if="false" :label="$t('Deployed Spiders')" name="spiders">
         {{ $t('Deployed Spiders') }}
-      </el-tab-pane>
+      </el-tab-pane> -->
     </el-tabs>
   </div>
 </template>

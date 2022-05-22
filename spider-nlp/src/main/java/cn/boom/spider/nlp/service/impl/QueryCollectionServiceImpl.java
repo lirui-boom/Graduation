@@ -68,7 +68,7 @@ public class QueryCollectionServiceImpl implements QueryCollectionService {
      */
     public List<CommonRecord> findByTaskId(String collectionName, String taskId) {
         // 创建条件对象
-        Criteria criteria = Criteria.where("taskId").is(taskId);
+        Criteria criteria = Criteria.where("taskId").is(taskId).and("title").nin(null, "");
         // 查询并返回结果
         return mongoTemplate.find(new Query(criteria), CommonRecord.class, collectionName);
     }

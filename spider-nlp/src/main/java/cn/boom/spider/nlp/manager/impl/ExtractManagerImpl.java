@@ -38,10 +38,8 @@ public class ExtractManagerImpl implements ExtractManager {
     }
 
     private static List<String> textRank(String field, int keywordNum) {
-        //分词
-        List<WOD<String>> wods = ToAnalysisParse(field);
-        // StopWord.filter(wods);//过滤掉不需要的分词，可省略
 
+        List<WOD<String>> wods = ToAnalysisParse(field);
         Map<String, Set<String>> relationWords = new HashMap<>();
         //获取每个关键词 前后k个的组合
         for (int i = 0; i < wods.size(); i++) {

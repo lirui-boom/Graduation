@@ -80,10 +80,14 @@ public class StatisticsScheduleServiceImpl implements StatisticsScheduleService 
     }
 
     private TaskStatisticsRecord buildTaskStatisticsInfo(TaskRecord task, List<CommonRecord> records) {
-        int invalidCount = 0, negativeCount = 0, positiveCount = 0, neutralCount = 0;
+        int invalidCount = 0, totalCount = 0, negativeCount = 0, positiveCount = 0, neutralCount = 0;
         Map<String, KeyWord> keyWordsMap = new HashMap<>();
         List<KeyWord> keyWords = new ArrayList<>();
         for (CommonRecord record : records) {
+            if (StringUtils.isEmpty(record.getTitle())) {
+                continue;
+            }
+            totalCount++;
             if (StringUtils.isEmpty(record.getEmotion())) {
                 invalidCount++;
                 continue;
@@ -139,8 +143,8 @@ public class StatisticsScheduleServiceImpl implements StatisticsScheduleService 
                     break;
             }
         }
-        if (1 - invalidCount / (double) records.size() < 0.9) {
-            System.out.println("invalid calculation task because valid record rate < 0.9 [spider]=" + task.getSpiderId() + ", [task]=" + task.getId() + ", [invalidCount]=" + invalidCount + ", [total]=" + records.size() + ", [rate]=" + (1 - invalidCount / (double) records.size()));
+        if (1 - invalidCount / (double) totalCount < 0.95) {
+            System.out.println("invalid calculation task because valid record rate < 0.95 [spider]=" + task.getSpiderId() + ", [task]=" + task.getId() + ", [invalidCount]=" + invalidCount + ", [total]=" + totalCount + ", [rate]=" + (1 - invalidCount / (double) totalCount));
             return null;
         }
         for (String key : keyWordsMap.keySet()) {

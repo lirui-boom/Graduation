@@ -22,6 +22,9 @@ public class QueryRedisServiceImpl implements QueryRedisService {
     @Override
     public TaskStatisticsResult getKeyWordsResult(StatisticsRequest request) {
         String data = (String) redisTemplate.opsForHash().get("statistics", request.getTaskId());
+        if (StringUtils.isEmpty(data)) {
+            return null;
+        }
         TaskStatisticsRecord statistics = JsonUtils.toBean(data, TaskStatisticsRecord.class);
 
         TaskStatisticsResult ret = new TaskStatisticsResult();
