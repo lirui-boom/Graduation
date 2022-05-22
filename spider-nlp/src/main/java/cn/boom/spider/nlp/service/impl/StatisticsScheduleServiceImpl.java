@@ -94,9 +94,10 @@ public class StatisticsScheduleServiceImpl implements StatisticsScheduleService 
                     if (!CollectionUtils.isEmpty(record.getKeywords())) {
                         for (String word : record.getKeywords()) {
                             if (keyWordsMap.get(word) == null) {
-                                keyWordsMap.put(word, new KeyWord(word, 1, 1, 0, 0));
+                                keyWordsMap.put(word, new KeyWord(word, new ArrayList<>(), 1, 1, 0, 0));
                             } else {
                                 KeyWord keyWord = keyWordsMap.get(word);
+                                keyWord.getSources().add(record.getTitle());
                                 keyWord.setTotalCount(keyWord.getTotalCount() + 1);
                                 keyWord.setNegativeCount(keyWord.getNegativeCount() + 1);
                                 keyWordsMap.put(word, keyWord);
@@ -109,9 +110,10 @@ public class StatisticsScheduleServiceImpl implements StatisticsScheduleService 
                     if (!CollectionUtils.isEmpty(record.getKeywords())) {
                         for (String word : record.getKeywords()) {
                             if (keyWordsMap.get(word) == null) {
-                                keyWordsMap.put(word, new KeyWord(word, 1, 0, 1, 0));
+                                keyWordsMap.put(word, new KeyWord(word, new ArrayList<>(), 1, 0, 1, 0));
                             } else {
                                 KeyWord keyWord = keyWordsMap.get(word);
+                                keyWord.getSources().add(record.getTitle());
                                 keyWord.setTotalCount(keyWord.getTotalCount() + 1);
                                 keyWord.setPositiveCount(keyWord.getPositiveCount() + 1);
                                 keyWordsMap.put(word, keyWord);
@@ -124,9 +126,10 @@ public class StatisticsScheduleServiceImpl implements StatisticsScheduleService 
                     if (!CollectionUtils.isEmpty(record.getKeywords())) {
                         for (String word : record.getKeywords()) {
                             if (keyWordsMap.get(word) == null) {
-                                keyWordsMap.put(word, new KeyWord(word, 1, 0, 0, 1));
+                                keyWordsMap.put(word, new KeyWord(word, new ArrayList<>(), 1, 0, 0, 1));
                             } else {
                                 KeyWord keyWord = keyWordsMap.get(word);
+                                keyWord.getSources().add(record.getTitle());
                                 keyWord.setTotalCount(keyWord.getTotalCount() + 1);
                                 keyWord.setNeutralCount(keyWord.getNeutralCount() + 1);
                                 keyWordsMap.put(word, keyWord);
