@@ -13,7 +13,7 @@ import java.util.List;
 @Setter
 public class KeyWord {
     private String content;
-    private List<String> sources;
+    private List<SourceData> sources;
     private Integer totalCount;
     private Integer negativeCount;
     private Integer positiveCount;

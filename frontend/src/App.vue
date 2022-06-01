@@ -84,7 +84,6 @@
     height: 24px;
     line-height: 24px;
     font-weight: 900;
-    /*padding: 0;*/
   }
 
   .pagination {

@@ -101,7 +101,7 @@ public class StatisticsScheduleServiceImpl implements StatisticsScheduleService 
                                 keyWordsMap.put(word, new KeyWord(word, new ArrayList<>(), 1, 1, 0, 0));
                             } else {
                                 KeyWord keyWord = keyWordsMap.get(word);
-                                keyWord.getSources().add(record.getTitle());
+                                keyWord.getSources().add(new SourceData(record.getTitle(), record.getUrl()));
                                 keyWord.setTotalCount(keyWord.getTotalCount() + 1);
                                 keyWord.setNegativeCount(keyWord.getNegativeCount() + 1);
                                 keyWordsMap.put(word, keyWord);
@@ -117,7 +117,7 @@ public class StatisticsScheduleServiceImpl implements StatisticsScheduleService 
                                 keyWordsMap.put(word, new KeyWord(word, new ArrayList<>(), 1, 0, 1, 0));
                             } else {
                                 KeyWord keyWord = keyWordsMap.get(word);
-                                keyWord.getSources().add(record.getTitle());
+                                keyWord.getSources().add(new SourceData(record.getTitle(), record.getUrl()));
                                 keyWord.setTotalCount(keyWord.getTotalCount() + 1);
                                 keyWord.setPositiveCount(keyWord.getPositiveCount() + 1);
                                 keyWordsMap.put(word, keyWord);
@@ -133,7 +133,7 @@ public class StatisticsScheduleServiceImpl implements StatisticsScheduleService 
                                 keyWordsMap.put(word, new KeyWord(word, new ArrayList<>(), 1, 0, 0, 1));
                             } else {
                                 KeyWord keyWord = keyWordsMap.get(word);
-                                keyWord.getSources().add(record.getTitle());
+                                keyWord.getSources().add(new SourceData(record.getTitle(), record.getUrl()));
                                 keyWord.setTotalCount(keyWord.getTotalCount() + 1);
                                 keyWord.setNeutralCount(keyWord.getNeutralCount() + 1);
                                 keyWordsMap.put(word, keyWord);
