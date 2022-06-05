@@ -44,7 +44,6 @@ Vue.use(codemirror)
 
 // element-ui
 Vue.use(ElementUI, { locale })
-
 // font-awesome
 library.add(fab)
 library.add(far)
